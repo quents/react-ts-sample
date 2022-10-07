@@ -6,6 +6,8 @@ import { addBasket, orders } from '../services'
 import { IOrderAction } from '../useRedux/reducers/OrderReducer'
 import { OrderType } from '../useRedux/types/OrderType'
 import { useDispatch } from 'react-redux'
+import AppTitle from './inc/AppTitle'
+import {Helmet} from "react-helmet";
 
 function ProductDetail() {
 
@@ -62,7 +64,11 @@ function ProductDetail() {
     <>
         {item &&
         <>
-            <h3>{item.productName}</h3>
+            <Helmet>
+                <title>{item.productName!}</title>
+                <meta name='description' content={item.brief}></meta>
+            </Helmet>
+            <AppTitle title={item.productName!}/>
             <div className='row'>
                 <div className='col-sm-6'>
                     <div className='mb-3'>

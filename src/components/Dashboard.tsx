@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ProBilgiler } from '../models/IProduct'
 import { allProduct } from '../services'
+import AppTitle from './inc/AppTitle'
+import {Helmet} from "react-helmet";
 
 function Dashboard() {
 
@@ -42,7 +44,11 @@ function Dashboard() {
 
   return (
     <>
-      <h2>Products</h2>
+      <Helmet>
+            <title>Product List</title>
+            <meta name='description' content='E-Commerce - Product List'></meta>
+      </Helmet>
+      <AppTitle title='Products'></AppTitle>
       <div className='col-sm-5 mb-2 mt-2'>
         <input type='search' onChange={(evt) => setSearch(evt.target.value)} className='form-control' placeholder='Search...'></input>
       </div>

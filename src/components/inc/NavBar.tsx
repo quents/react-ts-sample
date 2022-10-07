@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Bilgiler } from '../../models/IUser'
@@ -6,6 +6,10 @@ import { orders } from '../../services'
 import { IOrderAction } from '../../useRedux/reducers/OrderReducer'
 import { StateType } from '../../useRedux/store'
 import { OrderType } from '../../useRedux/types/OrderType'
+
+import styled, { keyframes } from 'styled-components';
+import { zoomIn } from 'react-animations';
+
 
 function NavBar(item: {data: Bilgiler, search: React.Dispatch<React.SetStateAction<string>>}) {
 
@@ -34,6 +38,19 @@ function NavBar(item: {data: Bilgiler, search: React.Dispatch<React.SetStateActi
             })
         }
     }, [])
+
+
+    const [animCount, setAnimCount] = useState<any>()
+    useEffect(() => {
+        const animation = keyframes`${zoomIn}`;
+
+        const AnimStrong = styled.div`
+        animation: 1s ${animation};
+        display: inline-block
+        `;
+        setAnimCount(<AnimStrong><strong>{selector.length}</strong> </AnimStrong>)
+    }, [selector])
+    
     
 
     return (
@@ -63,7 +80,7 @@ function NavBar(item: {data: Bilgiler, search: React.Dispatch<React.SetStateActi
             </ul>
             </li>
             <li className="nav-item">
-            <a className="nav-link disabled">{item.data.userName + ' ' + item.data.userSurname  + ' - ' + selector.length} </a>
+            <a className="nav-link disabled">{item.data.userName} {item.data.userSurname} - {animCount} </a>
             </li>
         </ul>
         <form className="d-flex" role="search">

@@ -3,10 +3,13 @@ import { useSelector } from 'react-redux'
 import { OrderList } from '../models/IOrder'
 import { orders } from '../services'
 import { StateType } from '../useRedux/store'
+import AppTitle from './inc/AppTitle'
+import {Helmet} from "react-helmet";
 
 function Product() {
 
   const arr = useSelector((item: StateType) => item.OrderReducer)
+  const search = useSelector((item: StateType) => item.SearchReducer)
 
   //redux kullandığım için bunlara gerek kalmadı
   /*const [arr, setArr] = useState<OrderList[]>([])
@@ -25,9 +28,18 @@ function Product() {
   }, [])*/
   
 
+  useEffect(() => {
+    console.log("effect: ", search)
+  }, [search])
+  
+
   return (
     <>
-      <h2>Orders</h2>
+      <Helmet>
+            <title>Order List</title>
+            <meta name='description' content='E-Commerce - Order List'></meta>
+      </Helmet>
+      <AppTitle title='Orders'></AppTitle>
       <table className="table table-hover">
         <thead>
           <tr>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ProBilgiler } from '../models/IProduct'
@@ -7,6 +7,9 @@ import AppTitle from './inc/AppTitle'
 import {Helmet} from "react-helmet";
 
 function Dashboard() {
+
+  //use ref
+  const searchRef = useRef<HTMLInputElement>(null)
 
   const [proArr, setProArr] = useState<ProBilgiler[]>([])
   const [oldArr, setOldArr] = useState<ProBilgiler[]>([])
@@ -39,6 +42,13 @@ function Dashboard() {
     setProArr(newArr)
 
   }, [search])
+
+  useEffect(() => {
+    console.log(typeof searchRef)
+    searchRef.current?.focus()
+    
+  }, [])
+  
   
   
 
@@ -50,7 +60,7 @@ function Dashboard() {
       </Helmet>
       <AppTitle title='Products'></AppTitle>
       <div className='col-sm-5 mb-2 mt-2'>
-        <input type='search' onChange={(evt) => setSearch(evt.target.value)} className='form-control' placeholder='Search...'></input>
+        <input ref={searchRef} type='search' onChange={(evt) => setSearch(evt.target.value)} className='form-control' placeholder='Search...'></input>
       </div>
 
       <table className="table table-hover">

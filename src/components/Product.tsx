@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { OrderList } from '../models/IOrder'
 import { orders } from '../services'
 import { StateType } from '../useRedux/store'
 import AppTitle from './inc/AppTitle'
 import {Helmet} from "react-helmet";
+import { IUserContext, UserContext } from '../UserContext'
 
 function Product() {
 
@@ -31,6 +32,19 @@ function Product() {
   useEffect(() => {
     console.log("effect: ", search)
   }, [search])
+
+
+
+    // use context
+    const  {data, setData} = useContext(UserContext)
+    useEffect(() => {
+      const sendItem: IUserContext = {
+        title: 'Orders Title',
+        color: '#1832db'
+      }
+      setData(sendItem
+        )
+    }, [])
   
 
   return (
@@ -39,7 +53,7 @@ function Product() {
             <title>Order List</title>
             <meta name='description' content='E-Commerce - Order List'></meta>
       </Helmet>
-      <AppTitle title='Orders'></AppTitle>
+      <AppTitle title={data.title}></AppTitle>
       <table className="table table-hover">
         <thead>
           <tr>

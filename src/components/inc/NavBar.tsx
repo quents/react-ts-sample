@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Bilgiler } from '../../models/IUser'
@@ -9,6 +9,7 @@ import { OrderType } from '../../useRedux/types/OrderType'
 
 import styled, { keyframes } from 'styled-components';
 import { zoomIn } from 'react-animations';
+import { UserContext } from '../../UserContext'
 
 
 function NavBar(item: {data: Bilgiler, search: React.Dispatch<React.SetStateAction<string>>}) {
@@ -50,13 +51,18 @@ function NavBar(item: {data: Bilgiler, search: React.Dispatch<React.SetStateActi
         `;
         setAnimCount(<AnimStrong><strong>{selector.length}</strong> </AnimStrong>)
     }, [selector])
+
+
+
+    // use context
+    const  {data, setData} = useContext(UserContext)  
     
     
 
     return (
         <nav className="navbar navbar-expand-lg bg-light">
     <div className="container-fluid">
-        <NavLink className="navbar-brand" to='/dashboard'>App Title</NavLink>
+        <NavLink className="navbar-brand" to='/dashboard'>{data.title}</NavLink>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
         </button>

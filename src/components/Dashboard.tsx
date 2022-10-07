@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ProBilgiler } from '../models/IProduct'
 import { allProduct } from '../services'
 import AppTitle from './inc/AppTitle'
 import {Helmet} from "react-helmet";
+import { IUserContext, UserContext } from '../UserContext'
 
 function Dashboard() {
 
@@ -49,7 +50,16 @@ function Dashboard() {
     
   }, [])
   
-  
+  // use context
+  const  {data, setData} = useContext(UserContext)
+  useEffect(() => {
+    const sendItem: IUserContext = {
+      title: 'Products',
+      color: '#32a852'
+    }
+    setData(sendItem
+      )
+  }, [])
   
 
   return (
@@ -58,7 +68,7 @@ function Dashboard() {
             <title>Product List</title>
             <meta name='description' content='E-Commerce - Product List'></meta>
       </Helmet>
-      <AppTitle title='Products'></AppTitle>
+      <AppTitle title={data.title}></AppTitle> 
       <div className='col-sm-5 mb-2 mt-2'>
         <input ref={searchRef} type='search' onChange={(evt) => setSearch(evt.target.value)} className='form-control' placeholder='Search...'></input>
       </div>
